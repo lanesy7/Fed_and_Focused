@@ -3,7 +3,6 @@
 Team website built with plain HTML, CSS and a little JavaScript.
 
 - **Live site:** (paste your GitHub Pages link here)
-- **How to edit:** see [GUIDE.md](GUIDE.md)
 
 ## Quick rules for the team
 1. Pull/fetch before you start editing.
