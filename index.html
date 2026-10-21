@@ -69,7 +69,7 @@
           <h4>Campus map</h4>
           <div class="map-embed">
             <!-- PASTE: to change the location, see GUIDE.md, Step 4 -->
-            <iframe
+            <iframe id="campus-map-frame"
               src="https://www.google.com/maps?q=Georgia+Tech+Atlanta&output=embed"
               loading="lazy"
               title="Map of campus"
@@ -78,21 +78,29 @@
         </div>
 
         <div class="card">
-          <h4>Key spots <span class="small">(tap or hover a pin)</span></h4>
+          <h4>Key spots <span class="small">(tap a pin for directions)</span></h4>
           <div class="pin-map">
             <!-- EDIT: swap in your campus map image -->
             <img src="images/campus-map.png" alt="Campus map">
 
-            <!-- PASTE: PINS. top/left are % of the image. Copy a whole <button> to add more. See GUIDE.md, Step 5 -->
-            <button class="pin" style="top: 30%; left: 25%;" type="button">
-              <span class="pin-label"><strong>Original Klemis Kitchen</strong>Located in the Bioquad. Meals from the dining halls, food from grocery stores, and a variety of shelf-stable items are available here.</span>
-            </button>
-            <button class="pin" style="top: 55%; left: 60%;" type="button">
-              <span class="pin-label"><strong>Klemis 489</strong>In the Clough Undergraduate Learning Center, Room 489, for students who need to grab a quick meal.</span>
-            </button>
-            <button class="pin" style="top: 75%; left: 35%;" type="button">
-              <span class="pin-label"><strong>Community Fridge</strong>At Grace House (182 Fifth Street, between Techwood and Fowler Streets) can be found under the back deck. The food options is similar to what’s available at the Original Klemis Kitchen, but is open to the entire campus 24 / 7.</span>
-            </button>
+            <!-- PASTE: PINS. See GUIDE.md, Step 5.
+                 style  = where the pin sits on YOUR image (find it with pin finder mode: add ?pins to the web address)
+                 data-place = what Google Maps searches for directions (a name + address, or coordinates)
+                 Copy a whole <div class="pin"> ... </div> block to add more. -->
+
+            <!-- TODO: swap data-place for the exact coordinates of Klemis Kitchen (see GUIDE.md, Step 5b) -->
+            <div class="pin" style="top: 30%; left: 25%;" data-place="Bioquad, Georgia Tech, Atlanta, GA">
+              <button class="pin-dot" type="button" aria-label="Original Klemis Kitchen"></button>
+              <div class="pin-label"><strong>Original Klemis Kitchen</strong>Located in the Bioquad. Meals from the dining halls, food from grocery stores, and a variety of shelf-stable items are available here.</div>
+            </div>
+            <div class="pin" style="top: 55%; left: 60%;" data-place="Clough Undergraduate Learning Commons, Atlanta, GA">
+              <button class="pin-dot" type="button" aria-label="Klemis 489"></button>
+              <div class="pin-label"><strong>Klemis 489</strong>In the Clough Undergraduate Learning Center, Room 489, for students who need to grab a quick meal.</div>
+            </div>
+            <div class="pin" style="top: 75%; left: 35%;" data-place="182 5th St NW, Atlanta, GA 30313">
+              <button class="pin-dot" type="button" aria-label="Community Fridge"></button>
+              <div class="pin-label"><strong>Community Fridge</strong>At Grace House (182 Fifth Street, between Techwood and Fowler Streets) can be found under the back deck. The food options is similar to what’s available at the Original Klemis Kitchen, but is open to the entire campus 24 / 7.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -131,8 +139,10 @@
       </div>
 
       
-      <!-- Data visualization: the numbers live in script.js. See GUIDE.md, Step 6 -->
-      <!-- COMMENTING THIS SECTION OUT FOR NOW UNTIL WE ARE READY/MORE TIME
+      <!-- HIDDEN FOR NOW: charts, other info and video. To bring them back, delete the
+           "<!- - START HIDDEN" line and the "END HIDDEN - ->" line below (only those two lines).
+           Video goes in place of the embed-placeholder div. See GUIDE.md, Steps 3 and 6. -->
+      <!-- START HIDDEN
       <h3 class="subheading">By the numbers</h3>
       <div class="grid-2">
         <div class="card chart-card"><canvas id="chart1"></canvas></div>
@@ -154,27 +164,29 @@
           <div class="embed-placeholder">Video goes here</div>
         </div>
       </div>
+      END HIDDEN -->
     </section>
-    -->
-<!-- PASTE: VIDEO (replace the whole placeholder div). See GUIDE.md, Step 3  right about class = "embedd-placeholder-->
-<!-- COMMENTING THIS SECTION OUT FOR NOW UNTIL WE ARE READY/MORE TIME, be careful with the stuff i commented out badly
-    <!-- ===================== SECTION 4: FORMS AGAIN ===================== 
+
+
+    <!-- ===================== SECTION 4: FEEDBACK + DONATION FORMS ===================== -->
+    <!-- HIDDEN FOR NOW. To bring it back, delete the "START HIDDEN" and "END HIDDEN" lines,
+         and un-comment the Feedback link in the nav bar at the top.
+         Paste the forms in place of the embed-placeholder divs. See GUIDE.md, Step 2. -->
+    <!-- START HIDDEN
     <section id="feedback" class="section">
       <h2>Tell us what you think</h2>
       <p class="section-intro">Why you want people to fill this out.</p>
       <div class="card narrow">
-        <!-- PASTE: MICROSOFT FORM #2 (replace the whole placeholder div). See GUIDE.md, Step 2 
         <div class="embed-placeholder form-embed">Microsoft Form goes here</div>
       </div>
 
       <h3 class="subheading">Support the project</h3>
       <p class="section-intro">A line about where donations go.</p>
       <div class="card narrow">
-        <!-- PASTE: DONATION FORM (replace the whole placeholder div). See GUIDE.md, Step 2 
         <div class="embed-placeholder form-embed">Donation form goes here</div>
       </div>
     </section>
--->
+    END HIDDEN -->
 
     <!-- ===================== SECTION 5: SOURCES ===================== -->
     <section id="sources" class="section">

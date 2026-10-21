@@ -103,3 +103,102 @@ function onScroll() {
 
 window.addEventListener("scroll", onScroll, { passive: true });
 onScroll();
+
+
+/* =========================================================
+   Map pins: click a pin -> popup with "Get directions",
+   and the Google map above jumps to that place.
+   Each pin's data-place (in index.html) is what Google searches for.
+   ========================================================= */
+const mapFrame = document.getElementById("campus-map-frame");
+const pins = document.querySelectorAll(".pin");
+
+pins.forEach((pin) => {
+  const place = pin.dataset.place;
+  const label = pin.querySelector(".pin-label");
+  const dot = pin.querySelector(".pin-dot");
+
+  // Add the "Get directions" link automatically
+  if (place && label) {
+    const link = document.createElement("a");
+    link.className = "pin-link";
+    link.href = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(place);
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = "Get directions";
+    label.appendChild(document.createElement("br"));
+    label.appendChild(link);
+  }
+
+  if (dot) {
+    dot.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const wasOpen = pin.classList.contains("open");
+      pins.forEach((p) => p.classList.remove("open")); // close the others
+      if (!wasOpen) {
+        pin.classList.add("open");
+        // Show this place on the Google map too
+        if (mapFrame && place) {
+          mapFrame.src = "https://www.google.com/maps?q=" + encodeURIComponent(place) + "&output=embed";
+        }
+      }
+    });
+  }
+});
+
+// Click anywhere else to close the popup
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".pin")) pins.forEach((p) => p.classList.remove("open"));
+});
+
+
+/* =========================================================
+   PIN FINDER MODE (for your team only)
+   Open the site with ?pins at the end of the web address, e.g.
+     index.html?pins   or   https://you.github.io/your-repo/?pins
+   Then click anywhere on the campus image to get its top/left numbers.
+   Visitors never see this.
+   ========================================================= */
+if (new URLSearchParams(window.location.search).has("pins")) {
+  document.body.classList.add("pin-finder-mode");
+
+  const banner = document.createElement("div");
+  banner.className = "pin-finder-banner";
+  banner.textContent = "Pin finder: click a spot on the campus image";
+  document.body.appendChild(banner);
+
+  document.querySelectorAll(".pin-map").forEach((mapBox) => {
+    const img = mapBox.querySelector("img");
+    if (!img) return;
+
+    img.addEventListener("click", (e) => {
+      const box = img.getBoundingClientRect();
+      const top = ((e.clientY - box.top) / box.height * 100).toFixed(1);
+      const left = ((e.clientX - box.left) / box.width * 100).toFixed(1);
+      const code = `style="top: ${top}%; left: ${left}%;"`;
+
+      // Drop a marker where you clicked
+      mapBox.querySelectorAll(".pin-finder-mark, .pin-finder-tag").forEach((el) => el.remove());
+      const mark = document.createElement("span");
+      mark.className = "pin-finder-mark";
+      mark.style.top = top + "%";
+      mark.style.left = left + "%";
+      const tag = document.createElement("span");
+      tag.className = "pin-finder-tag";
+      tag.style.top = top + "%";
+      tag.style.left = left + "%";
+      tag.textContent = `top: ${top}%; left: ${left}%`;
+      mapBox.append(mark, tag);
+
+      // Copy it so you can paste straight into index.html
+      banner.textContent = `${code}  (copied, paste it into your pin)`;
+      try {
+        navigator.clipboard.writeText(code).catch(() => {
+          banner.textContent = `${code}  (copy this into your pin)`;
+        });
+      } catch (err) {
+        banner.textContent = `${code}  (copy this into your pin)`;
+      }
+    });
+  });
+}

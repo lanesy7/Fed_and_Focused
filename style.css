@@ -277,9 +277,16 @@ a { color: var(--accent); }
 .pin-map { position: relative; }
 .pin-map img { width: 100%; border-radius: 4px; }
 
+/* Each pin = a wrapper (positioned on the image) + a dot + a popup label */
 .pin {
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);   /* center of the dot sits on the spot */
+  z-index: 2;
+}
+.pin.open { z-index: 10; }            /* open popup sits above other pins */
+
+.pin-dot {
+  display: block;
   width: 18px;
   height: 18px;
   padding: 0;
@@ -288,27 +295,86 @@ a { color: var(--accent); }
   background: var(--accent);
   cursor: pointer;
   box-shadow: 0 0 0 4px rgba(156, 194, 122, 0.35);
+  transition: transform 0.15s;
 }
+.pin-dot:hover,
+.pin.open .pin-dot { transform: scale(1.25); }
+
 .pin-label {
   display: none;
   position: absolute;
-  bottom: 160%;
+  bottom: calc(100% + 12px);
   left: 50%;
   transform: translateX(-50%);
-  width: 170px;
-  padding: 0.6rem 0.75rem;
+  width: 200px;
+  padding: 0.7rem 0.85rem;
   background: var(--bg);
   color: var(--text);
-  border-radius: 4px;
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   font-family: var(--font);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   line-height: 1.4;
   text-align: left;
-  z-index: 5;
 }
-.pin-label strong { display: block; color: var(--accent); font-weight: 600; }
-.pin:hover .pin-label,
-.pin:focus .pin-label { display: block; }
+.pin-label strong { display: block; color: var(--accent); font-weight: 600; margin-bottom: 0.15rem; }
+.pin.open .pin-label { display: block; }
+
+/* "Get directions" link (script.js adds it automatically from data-place) */
+.pin-link {
+  display: inline-block;
+  margin-top: 0.55rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-decoration: none;
+}
+.pin-link:hover { background: var(--text); }
+
+/* Pin finder mode (only shows when you add ?pins to the web address) */
+.pin-finder-banner {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 300;
+  max-width: calc(100% - 2rem);
+  padding: 0.7rem 1.1rem;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+}
+.pin-finder-mode .pin-map img { cursor: crosshair; }
+.pin-finder-mark {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #e05a3a;
+  pointer-events: none;
+  z-index: 20;
+}
+.pin-finder-tag {
+  position: absolute;
+  transform: translate(-50%, -150%);
+  padding: 0.25rem 0.5rem;
+  background: #fff;
+  color: #111;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 20;
+}
 
 /* =========================================================
    CHARTS
