@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- EDIT: the name that shows in the browser tab -->
+  <title>Your Project Name</title>
+
+  <!-- Fonts: Libre Caslon (fancy italic headings) + Mulish (light, clean text, close to Avenir) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;1,400&family=Mulish:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===================== NAV BAR (see-through over the photo, solid once you scroll) ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#home" class="nav-brand">
+        <!-- Want a logo later? Put this line right here: <img src="images/logo.png" alt="Project logo" class="nav-logo"> -->
+        <span class="brand-text">
+          <!-- EDIT: small line on top + project name -->
+          <span class="brand-small">Small line on top</span>
+          <span class="brand-big">Project Name</span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#get-involved">Get Involved</a></li>
+        <li><a href="#eat-healthy">Eat Healthy</a></li>
+        <li><a href="#feedback">Feedback</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ===================== SECTION 1: BIG PHOTO + TITLE ===================== -->
+    <!-- The photo sits underneath and drifts/fades away as you scroll -->
+    <section id="home" class="hero">
+      <!-- EDIT: main photo (images/hero.jpg) -->
+      <img src="images/hero.jpg" alt="Students eating together in a campus dining hall" class="hero-bg" id="hero-bg">
+      <div class="hero-text">
+        <!-- EDIT: title + statement -->
+        <p class="kicker">Small intro line</p>
+        <h1>Your Project Name</h1>
+        <p class="tagline">A one-sentence statement about what your project is and why it matters.</p>
+        <a href="#get-involved" class="btn">Get involved</a>
+      </div>
+    </section>
+
+
+    <!-- ===================== SECTION 2: FORM, DONATION FORM, MAP ===================== -->
+    <section id="get-involved" class="section">
+      <h2>Get Involved</h2>
+      <p class="section-intro">A sentence or two telling people what they can do here.</p>
+
+      <div class="card narrow">
+        <h3>Sign up</h3>
+        <!-- PASTE: MICROSOFT FORM #1 (replace the whole placeholder div). See GUIDE.md, Step 2 -->
+        <div class="embed-placeholder form-embed">Microsoft Form goes here</div>
+      </div>
+
+      <h3 class="subheading">Find us on campus</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Campus map</h4>
+          <div class="map-embed">
+            <!-- PASTE: to change the location, see GUIDE.md, Step 4 -->
+            <iframe
+              src="https://www.google.com/maps?q=Georgia+Tech+Atlanta&output=embed"
+              loading="lazy"
+              title="Google map of campus"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4>Key spots <span class="small">(tap or hover a pin)</span></h4>
+          <div class="pin-map">
+            <!-- EDIT: swap in your campus map image -->
+            <img src="images/campus-map-placeholder.svg" alt="Campus map">
+
+            <!-- PASTE: PINS. top/left are % of the image. Copy a whole <button> to add more. See GUIDE.md, Step 5 -->
+            <button class="pin" style="top: 30%; left: 25%;" type="button">
+              <span class="pin-label"><strong>Dining Hall</strong>What happens here</span>
+            </button>
+            <button class="pin" style="top: 55%; left: 60%;" type="button">
+              <span class="pin-label"><strong>Farmers Market</strong>What happens here</span>
+            </button>
+            <button class="pin" style="top: 75%; left: 35%;" type="button">
+              <span class="pin-label"><strong>Food Pantry</strong>What happens here</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================== SECTION 3: EAT HEALTHY, OTHER INFO, VIDEO ===================== -->
+    <section id="eat-healthy" class="section">
+      <h2>Eat Healthy</h2>
+      <p class="section-intro">Intro to your healthy eating info.</p>
+
+      <!-- PHOTO TILES: a photo with text on top.
+           Copy a whole <div class="tile"> ... </div> block to add more. See GUIDE.md, Step 8 -->
+      <div class="grid-3">
+        <div class="tile">
+          <img src="images/tile1-placeholder.svg" alt="Describe photo">
+          <div class="tile-text">
+            <h3>Tip one</h3>
+            <p>Short info here.</p>
+          </div>
+        </div>
+        <div class="tile">
+          <img src="images/tile2-placeholder.svg" alt="Describe photo">
+          <div class="tile-text">
+            <h3>Tip two</h3>
+            <p>Short info here.</p>
+          </div>
+        </div>
+        <div class="tile">
+          <img src="images/tile3-placeholder.svg" alt="Describe photo">
+          <div class="tile-text">
+            <h3>Tip three</h3>
+            <p>Short info here.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data visualization: the numbers live in script.js. See GUIDE.md, Step 6 -->
+      <h3 class="subheading">By the numbers</h3>
+      <div class="grid-2">
+        <div class="card chart-card"><canvas id="chart1"></canvas></div>
+        <div class="card chart-card"><canvas id="chart2"></canvas></div>
+      </div>
+
+      <h3 class="subheading">Other info</h3>
+      <div class="grid-2 align-center">
+        <div>
+          <p>Any other info you want to share. Add more paragraphs with &lt;p&gt; ... &lt;/p&gt;.</p>
+          <ul class="list">
+            <li>A key point</li>
+            <li>Another key point</li>
+            <li>One more</li>
+          </ul>
+        </div>
+        <div class="video-embed">
+          <!-- PASTE: VIDEO (replace the whole placeholder div). See GUIDE.md, Step 3 -->
+          <div class="embed-placeholder">Video goes here</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================== SECTION 4: FORMS AGAIN ===================== -->
+    <section id="feedback" class="section">
+      <h2>Tell us what you think</h2>
+      <p class="section-intro">Why you want people to fill this out.</p>
+      <div class="card narrow">
+        <!-- PASTE: MICROSOFT FORM #2 (replace the whole placeholder div). See GUIDE.md, Step 2 -->
+        <div class="embed-placeholder form-embed">Microsoft Form goes here</div>
+      </div>
+
+      <h3 class="subheading">Support the project</h3>
+      <p class="section-intro">A line about where donations go.</p>
+      <div class="card narrow">
+        <!-- PASTE: DONATION FORM (replace the whole placeholder div). See GUIDE.md, Step 2 -->
+        <div class="embed-placeholder form-embed">Donation form goes here</div>
+      </div>
+    </section>
+
+
+    <!-- ===================== SECTION 5: SOURCES ===================== -->
+    <section id="sources" class="section">
+      <h2>Sources</h2>
+      <!-- PASTE: one <li> per source. See GUIDE.md, Step 7 -->
+      <ol class="sources-list">
+        <li>Author, A. (Year). <em>Title of the page or article</em>. Site Name. <a href="https://example.com" target="_blank" rel="noopener">https://example.com</a></li>
+        <li>Author, B. (Year). <em>Title of the page or article</em>. Site Name. <a href="https://example.com" target="_blank" rel="noopener">https://example.com</a></li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <!-- EDIT: team names / class -->
+    <p>Made by Teammate One, Teammate Two, Teammate Three &middot; Class Name &middot; 2026</p>
+  </footer>
+
+  <!-- Chart library (for the live charts), then our own script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
