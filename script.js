@@ -153,6 +153,103 @@ document.addEventListener("click", (e) => {
 
 
 /* =========================================================
+   VERTICAL SHOPPING CART
+   A cart rides down the right edge of the page as you scroll and picks up
+   each food along the way. Scrolling back up puts the foods back.
+   Edit the foods in index.html (the <li class="rail-food"> lines).
+   ========================================================= */
+(function () {
+  const rail = document.getElementById("cart-rail");
+  const cart = document.getElementById("rail-cart");
+  if (!rail || !cart) return;
+
+  const foods = Array.from(rail.querySelectorAll(".rail-food"));
+  const fill = document.getElementById("rail-fill");
+  const load = document.getElementById("rail-load");
+  const badge = document.getElementById("rail-count");
+  const tip = document.getElementById("rail-tip");
+  const live = document.getElementById("cart-live");
+
+  // Foods are spread evenly between these two points of the page (0 = top, 1 = bottom)
+  const START = 0.1;
+  const END = 0.92;
+
+  let positions = [];
+  let railH = 0;
+  let cartH = 0;
+  let collected = -1;   // -1 means "haven't drawn yet"
+  let tipTimer;
+
+  // Work out where each food sits on the rail (re-runs when the window resizes)
+  function layout() {
+    railH = rail.clientHeight;
+    cartH = cart.offsetHeight;
+    const travel = Math.max(0, railH - cartH);
+    positions = foods.map((el, i) => {
+      const t = foods.length > 1 ? i / (foods.length - 1) : 0.5;
+      const at = START + (END - START) * t;
+      el.style.top = at * travel + cartH / 2 + "px";
+      return at;
+    });
+  }
+
+  function showTip(food, n) {
+    tip.textContent = "";
+    const title = document.createElement("strong");
+    title.textContent = food.textContent.trim() + " " + food.dataset.name +
+      (n === foods.length ? " · Cart full!" : "");
+    tip.append(title, document.createTextNode(food.dataset.fact));
+    tip.classList.add("show");
+    clearTimeout(tipTimer);
+    tipTimer = setTimeout(() => tip.classList.remove("show"), 3200);
+  }
+
+  function update() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const f = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    const travel = Math.max(0, railH - cartH);
+    const y = f * travel;
+
+    cart.style.transform = `translateY(${y}px)`;
+    fill.style.height = y + cartH / 2 + "px";
+
+    // A food is collected once the cart reaches it
+    let n = 0;
+    foods.forEach((el, i) => {
+      const got = f >= positions[i];
+      el.classList.toggle("collected", got);
+      if (got) n++;
+    });
+
+    if (n !== collected) {
+      const before = collected;
+      collected = n;
+      badge.textContent = n;
+
+      load.textContent = "";
+      foods.slice(0, n).forEach((el) => {
+        const s = document.createElement("span");
+        s.textContent = el.textContent.trim();
+        load.appendChild(s);
+      });
+
+      if (before >= 0 && n > before) {
+        const last = foods[n - 1];
+        showTip(last, n);
+        if (live) live.textContent = "Added " + last.dataset.name + " to your cart. " + n + " of " + foods.length + ".";
+      }
+    }
+  }
+
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", () => { layout(); update(); });
+  window.addEventListener("load", () => { layout(); update(); });
+  layout();
+  update();
+})();
+
+
+/* =========================================================
    PIN FINDER MODE (for your team only)
    Open the site with ?pins at the end of the web address, e.g.
      index.html?pins   or   https://you.github.io/your-repo/?pins
