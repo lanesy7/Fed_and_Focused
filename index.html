@@ -142,22 +142,46 @@
       </div>
       <h3 class="subheading">Current Situation</h3>
       <div class="grid-3">
-        <div class="card align-center">
-          <div class="card-icon" aria-hidden="true">🌍</div>
-          <h3 class="stat-num" style="font-size: 2.2rem; color: #b3a369; margin-bottom: 0.5rem;">2.3 Billion</h3>
-          <p><strong>(28% Globally)</strong></p>
+
+        <!-- CARD 1: bar filled to the percentage. Change --pct to edit the fill.
+             Edit data-tip-title / data-tip to change the hover text. -->
+        <div class="card stat-card">
+          <h3 class="stat-num">2.3 Billion</h3>
+          <p><strong>Face food security issues</strong></p>
+          <div class="stat-bar" style="--pct: 28;" role="group" aria-label="Bar chart: 28 percent of people worldwide face moderate or severe food insecurity">
+            <div class="stat-bar-fill" tabindex="0"
+                 data-tip-title="2.3 billion people (28%)"
+                 data-tip="Face moderate or severe food insecurity worldwide."></div>
+            <div class="stat-bar-rest" tabindex="0"
+                 data-tip-title="The other 72%"
+                 data-tip="Do not face moderate or severe food insecurity."></div>
+          </div>
+          <div class="stat-bar-scale" aria-hidden="true"><span>0%</span><span>100%</span></div>
           <p class="small">People worldwide facing moderate or severe food insecurity.</p>
         </div>
-        <div class="card align-center">
-          <div class="card-icon" aria-hidden="true">🎓</div>
-          <h3 class="stat-num" style="font-size: 2.2rem; color: #b3a369; margin-bottom: 0.5rem;">10%</h3>
-          <p><strong>of Georgia Tech Students</strong></p>
-          <p class="small">Currently experience food insecurity on our campus.</p>
+
+        <!-- CARD 2: Georgia college students (29%) -->
+        <div class="card stat-card">
+          <h3 class="stat-num">29% of Georgia Students</h3>
+          <p><strong>In a blind research study of over 2,500 students</strong></p>
+          <div class="stat-bar" style="--pct: 29;" role="group" aria-label="Bar chart: about 29 percent of college students in Georgia were food insecure">
+            <div class="stat-bar-fill" tabindex="0"
+                 data-tip-title="About 29% of students"
+                 data-tip="Roughly 100 to 160 thousand students in Georgia when adjusted"></div>
+            <div class="stat-bar-rest" tabindex="0"
+                 data-tip-title="The other 71%"
+                 data-tip="Food secure."></div>
+          </div>
+          <div class="stat-bar-scale" aria-hidden="true"><span>0%</span><span>100%</span></div>
+          <p class="small">Were food insecure across seven Georgia colleges and universities.</p>
         </div>
-        <div class="card align-center">
-          <div class="card-icon" aria-hidden="true">🍽️</div>
-          <h3 class="stat-num" style="font-size: 2.2rem; color: #b3a369; margin-bottom: 0.5rem;">300+</h3>
+
+        <!-- CARD 3: one dot per student. script.js draws the dots; change data-count to change how many. -->
+        <div class="card stat-card">
+          <h3 class="stat-num">300+</h3>
           <p><strong>Students Supported</strong></p>
+          <div class="dot-grid" data-count="300" role="img" aria-label="300 dots, one for each student supported"></div>
+          <p class="dot-key" aria-hidden="true"><span class="dot-key-dot"></span> = 1 student</p>
           <p class="small">Have access to Klemis Kitchen for reliable, free meals.</p>
         </div>
       </div>
