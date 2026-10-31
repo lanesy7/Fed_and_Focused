@@ -250,6 +250,92 @@ document.addEventListener("click", (e) => {
 
 
 /* =========================================================
+   Current Situation: bars fill + dots appear when scrolled into view,
+   and the bars show a tooltip on hover / keyboard focus / tap.
+   ========================================================= */
+document.documentElement.classList.add("viz-ready");
+
+// Dots: one per student (set data-count in index.html)
+document.querySelectorAll(".dot-grid").forEach((grid) => {
+  const count = parseInt(grid.dataset.count, 10) || 0;
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < count; i++) {
+    const dot = document.createElement("span");
+    dot.className = "dot";
+    dot.style.setProperty("--i", i);
+    frag.appendChild(dot);
+  }
+  grid.appendChild(frag);
+});
+
+// Play the fill / pop-in once, when the card first scrolls into view
+const vizItems = document.querySelectorAll(".stat-bar, .dot-grid");
+if ("IntersectionObserver" in window && !calmMotion) {
+  const vizObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  vizItems.forEach((el) => vizObserver.observe(el));
+} else {
+  vizItems.forEach((el) => el.classList.add("in-view")); // no animation: just show it
+}
+
+// Tooltip
+const tip = document.createElement("div");
+tip.className = "viz-tooltip";
+tip.setAttribute("role", "tooltip");
+document.body.appendChild(tip);
+
+function showTip(el, x, y) {
+  tip.textContent = "";
+  const title = document.createElement("strong");
+  title.textContent = el.dataset.tipTitle || "";
+  tip.append(title, el.dataset.tip || "");
+  tip.classList.add("show");
+  moveTip(x, y);
+}
+
+function moveTip(x, y) {
+  const w = tip.offsetWidth;
+  const h = tip.offsetHeight;
+  const gap = 14;
+  let left = x - w / 2;
+  let top = y - h - gap;                       // above the pointer
+  if (top < 8) top = y + gap + 6;              // not enough room above: go below
+  left = Math.max(8, Math.min(left, window.innerWidth - w - 8));
+  tip.style.transform = `translate(${left}px, ${top}px)`;
+}
+
+function hideTip() { tip.classList.remove("show"); }
+
+document.querySelectorAll("[data-tip]").forEach((el) => {
+  el.setAttribute("role", "img");                // screen readers get the same text as the tooltip
+  el.setAttribute("aria-label", `${el.dataset.tipTitle}: ${el.dataset.tip}`);
+  el.addEventListener("mouseenter", (e) => showTip(el, e.clientX, e.clientY));
+  el.addEventListener("mousemove", (e) => moveTip(e.clientX, e.clientY));
+  el.addEventListener("mouseleave", hideTip);
+  el.addEventListener("focus", () => {          // keyboard users
+    const r = el.getBoundingClientRect();
+    showTip(el, r.left + r.width / 2, r.top);
+  });
+  el.addEventListener("blur", hideTip);
+  el.addEventListener("click", (e) => {         // phones: tap to show
+    e.stopPropagation();
+    showTip(el, e.clientX, e.clientY);
+  });
+});
+document.addEventListener("click", hideTip);
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") hideTip(); });
+window.addEventListener("scroll", hideTip, { passive: true });
+
+
+
+
+/* =========================================================
    PIN FINDER MODE (for your team only)
    Open the site with ?pins at the end of the web address, e.g.
      index.html?pins   or   https://you.github.io/your-repo/?pins
