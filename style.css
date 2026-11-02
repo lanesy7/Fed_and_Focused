@@ -8,6 +8,7 @@
   --muted: #a3ad9c;       /* lighter text (sage grey) */
   --accent: #9cc27a;      /* highlight color (sage/leaf green) */
   --accent-2: #d9c27a;    /* second chart color (wheat) */
+  --gold: #b3a369;
 
   /* Headings: Adobe Caslon if you have it, otherwise the free Libre Caslon */
   --font-display: "adobe-caslon-pro", "Libre Caslon Text", Georgia, serif;
@@ -602,4 +603,97 @@ a { color: var(--accent); }
   .tile { min-height: 300px; }
   .nav-links { gap: 0.3rem 1.2rem; }
   .brand-big { font-size: 1.3rem; }
+}
+.stat-num {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+/* Bar: filled part = the percentage, empty part = everyone else */
+.stat-bar {
+  display: flex;
+  height: 30px;
+  margin: 1.1rem 0 0.4rem;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(236, 231, 218, 0.08);
+}
+.stat-bar-fill,
+.stat-bar-rest { height: 100%; cursor: pointer; outline-offset: -3px; }
+.stat-bar-fill {
+  width: calc(var(--pct) * 1%);
+  min-width: 6px;                      /* keeps a tiny percentage visible */
+  background: var(--gold);
+  border-radius: 999px;
+  transition: width 1.1s cubic-bezier(0.22, 0.8, 0.3, 1), filter 0.2s;
+}
+.stat-bar-rest { flex: 1; transition: background 0.2s; }
+.stat-bar-fill:hover, .stat-bar-fill:focus-visible { filter: brightness(1.12); }
+.stat-bar-rest:hover, .stat-bar-rest:focus-visible { background: rgba(236, 231, 218, 0.07); }
+.stat-bar-fill:focus-visible, .stat-bar-rest:focus-visible { outline: 2px solid var(--text); }
+
+/* Starts empty and fills when scrolled into view (only when script.js is running) */
+.viz-ready .stat-bar:not(.in-view) .stat-bar-fill { width: 0; min-width: 0; }
+
+.stat-bar-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+/* Dots: 30 across, one per student */
+.dot-grid {
+  display: grid;
+  grid-template-columns: repeat(30, 1fr);   /* 30 across x 10 down = 300 */
+  gap: 3px;
+  margin: 1.1rem 0 0.6rem;
+}
+.dot {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.viz-ready .dot-grid:not(.in-view) .dot { opacity: 0; transform: scale(0.3); }
+.viz-ready .dot-grid .dot {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition-delay: calc(var(--i) * 3ms);   /* dots pop in one after another */
+}
+.dot-key {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.dot-key-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); }
+
+/* Tooltip (shared by the bars) */
+.viz-tooltip {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 400;
+  max-width: 240px;
+  padding: 0.6rem 0.8rem;
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+.viz-tooltip.show { opacity: 1; }
+.viz-tooltip strong { display: block; color: var(--gold); font-weight: 600; margin-bottom: 0.1rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stat-bar-fill, .viz-ready .dot-grid .dot { transition: none; }
 }
