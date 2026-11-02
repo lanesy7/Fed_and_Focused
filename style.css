@@ -5,8 +5,8 @@
   --bg: #0e1712;          /* page background (near-black forest green) */
   --card: #15211a;        /* card background (a touch lighter) */
   --text: #ece7da;        /* main text (warm cream) */
-  --muted: #a3ad9c;       /* lighter text (sage grey) */
-  --accent: #9cc27a;      /* highlight color (sage/leaf green) */
+  --muted: #f2efe8;       /* secondary text (soft white so it is easy to read) */
+  --accent: #b6d89a;      /* highlight color (light sage/leaf green) */
   --accent-2: #d9c27a;    /* second chart color (wheat) */
   --gold: #b3a369;
 
@@ -51,13 +51,13 @@ h1, h2, h3 {
 h1 { font-size: clamp(3rem, 8vw, 6.5rem); letter-spacing: -0.01em; }
 h2 { font-size: clamp(2.4rem, 5vw, 3.8rem); }
 h3 { font-size: clamp(1.5rem, 2.5vw, 2rem); }
-h4 { font-size: 0.85rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin: 0 0 1em; }
+h4 { font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin: 0 0 1em; }
 p  { margin: 0 0 1em; }
 
 img { max-width: 100%; display: block; }
 a { color: var(--accent); }
 
-.small { font-size: 0.8rem; text-transform: none; letter-spacing: 0; }
+.small { font-size: 0.88rem; font-weight: 500; color: var(--muted); text-transform: none; letter-spacing: 0; }
 
 /* =========================================================
    NAV BAR
@@ -95,7 +95,7 @@ a { color: var(--accent); }
 }
 .nav-logo { width: 44px; height: 44px; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
-.brand-small { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85; }
+.brand-small { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
 .brand-big { font-family: var(--font-display); font-style: italic; font-size: 1.6rem; }
 .nav-links {
   list-style: none;
@@ -165,6 +165,7 @@ a { color: var(--accent); }
 }
 .section-intro {
   color: var(--muted);
+  font-weight: 400;
   font-size: 1.15rem;
   max-width: 620px;
   margin-bottom: 2.5rem;
@@ -250,6 +251,16 @@ a { color: var(--accent); }
 }
 .form-embed { min-height: 420px; }
 
+/* "What it is / How to use it / Why it matters" blurbs above the form and maps */
+.blurb { list-style: none; margin: 0 0 1.25rem; padding: 0; font-size: 0.95rem; font-weight: 400; line-height: 1.55; }
+.blurb li { margin-bottom: 0.45rem; }
+.blurb strong { color: var(--accent); font-weight: 700; }
+
+/* Intro paragraph at the top of Resources */
+.resources-intro { max-width: 760px; margin-bottom: 2.5rem; font-size: 1.1rem; font-weight: 400; }
+.resources-intro p { margin-bottom: 0.9rem; }
+.resources-intro strong { color: var(--accent); font-weight: 700; }
+
 /* Microsoft Forms iframes */
 .card iframe.ms-form {
   width: 100%;
@@ -300,7 +311,7 @@ a { color: var(--accent); }
   border-radius: 50%;
   background: var(--accent);
   cursor: pointer;
-  box-shadow: 0 0 0 4px rgba(156, 194, 122, 0.35);
+  box-shadow: 0 0 0 4px rgba(182, 216, 154, 0.35);
   transition: transform 0.15s;
 }
 .pin-dot:hover,
@@ -483,7 +494,7 @@ a { color: var(--accent); }
   place-items: center;
   margin-bottom: 0.8rem;
   border-radius: 50%;
-  background: rgba(156, 194, 122, 0.12);
+  background: rgba(182, 216, 154, 0.12);
   font-size: 1.7rem;
   line-height: 1;
 }
@@ -504,7 +515,8 @@ a { color: var(--accent); }
   line-height: 1.2;
 }
 .flow-icons small {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
@@ -527,7 +539,7 @@ a { color: var(--accent); }
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: rgba(156, 194, 122, 0.12);
+  background: rgba(182, 216, 154, 0.12);
   font-size: 1.8rem;
   line-height: 1;
 }
@@ -583,14 +595,15 @@ a { color: var(--accent); }
 /* =========================================================
    SOURCES + FOOTER
    ========================================================= */
-.sources-list { max-width: 850px; padding-left: 1.2rem; color: var(--muted); }
+.sources-list { max-width: 850px; padding-left: 1.2rem; color: var(--muted); font-weight: 400; }
 .sources-list li { margin-bottom: 0.9rem; padding-left: 0.5rem; }
 .sources-list em { color: var(--text); }
 .sources-list a { word-break: break-all; }
 
 .footer {
   color: var(--muted);
-  font-size: 0.85rem;
+  font-weight: 500;
+  font-size: 0.9rem;
   text-align: center;
   padding: 3rem 1.5rem 2.5rem;
 }
@@ -640,7 +653,8 @@ a { color: var(--accent); }
 .stat-bar-scale {
   display: flex;
   justify-content: space-between;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--muted);
   margin-bottom: 1rem;
 }
@@ -667,7 +681,8 @@ a { color: var(--accent); }
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--muted);
   margin-bottom: 1rem;
 }

@@ -107,7 +107,7 @@ onScroll();
 
 /* =========================================================
    Map pins: click a pin -> popup with "Get directions",
-   and the Google map above jumps to that place.
+   and the Google map next to it jumps to that place.
    Each pin's data-place (in index.html) is what Google searches for.
    ========================================================= */
 const mapFrame = document.getElementById("campus-map-frame");
